@@ -39,7 +39,7 @@ function syncToObsidian() {
   console.log(`Synced ${output} → ${livePlugin}`);
 }
 
-function startWebServer(port = 3000, host = "0.0.0.0") {
+function startWebServer(port = 3000, host = "127.0.0.1") {
   const mimeTypes = {
     ".html": "text/html; charset=utf-8",
     ".js": "application/javascript; charset=utf-8",
@@ -134,7 +134,7 @@ try {
   await webCtx.watch();
 
   // 3. Start web server on port 3000
-  startWebServer(3000, "0.0.0.0");
+  startWebServer(3000, "127.0.0.1");
 
   console.log("Command Center development server running.");
 } catch (error) {
