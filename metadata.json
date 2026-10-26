@@ -1,0 +1,8 @@
+{
+  "name": "Command Center",
+  "description": "Visual portfolio command center, pre-flight reviewer, and experimental sandbox for project observation and navigation.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

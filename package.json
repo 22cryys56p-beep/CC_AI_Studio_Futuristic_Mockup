@@ -1,0 +1,20 @@
+{
+  "name": "command-center",
+  "version": "0.1.0",
+  "description": "Command Center — Obsidian plugin implementing the Phase 3 Architecture Record",
+  "main": "main.js",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --outfile=main.js --external:obsidian --format=cjs --target=es2020",
+    "dev": "node scripts/dev.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:log": "bash ./scripts/run-tests-save-logs.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.21.0",
+    "obsidian": "^1.5.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.5.0"
+  }
+}

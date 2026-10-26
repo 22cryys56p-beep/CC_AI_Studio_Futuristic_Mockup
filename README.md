@@ -1,11 +1,16 @@
-<div align="center">
+# Command Center
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+An AI-agnostic, portable project command center for visual portfolio operations. Open this folder as an Obsidian vault, then begin at the Command Center Gateway.
 
-  <h1>Built with AI Studio</h2>
+## Quick start
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+1. Open this folder in Obsidian.
+2. Set the Command Center Gateway as the startup note (optional).
+3. Begin at the Command Center Gateway for project navigation.
+4. Update the frontmatter and `Current Focus` section whenever work changes.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+All notes are plain Markdown; Canvas is stored in Obsidian's portable JSON canvas format. Project repositories are referenced in each project's [[Operating Environment]], never stored here.
 
-</div>
+## Git
+
+This vault is intentionally self-contained and ready for its own Git repository. The included `.gitignore` excludes local Obsidian workspace state while retaining shareable configuration.
