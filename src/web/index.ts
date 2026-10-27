@@ -142,88 +142,10 @@ class CommandCenterWebSandbox {
     this.orientationBarContainer.style.display = "none";
     screenChassis.appendChild(this.orientationBarContainer);
 
-    // Top tactical screen HUD header
-    const boardHeaderPlate = document.createElement("div");
-    boardHeaderPlate.className = "cc-corkboard-brass-header cc-screen-hud-header";
-    boardHeaderPlate.innerHTML = `
-      <div class="cc-hud-status-left">
-        <span class="cc-hud-pulse-dot"></span>
-        <span class="cc-hud-sys-tag">SYS // QUANTUM.CORE</span>
-      </div>
-      <div class="cc-corkboard-plaque-tag cc-hud-title-tag">
-        <span class="cc-corkboard-dot cc-hud-reticle-dot"></span>
-        <span class="cc-corkboard-title cc-hud-title">COMMAND CONSOLE • FUTURISTIC HUD DISPLAY</span>
-        <span class="cc-corkboard-status cc-hud-badge">● ONLINE // 100%</span>
-      </div>
-      <div class="cc-hud-status-right">
-        <span class="cc-hud-telemetry-tag">TELEMETRY: NOMINAL</span>
-      </div>
-    `;
-    screenChassis.appendChild(boardHeaderPlate);
-
     // Inner viewport where Command Center views mount
     this.viewContainer = document.createElement("div");
     this.viewContainer.className = "cc-sandbox-main-area";
     screenChassis.appendChild(this.viewContainer);
-
-    // Bottom tactical frequency control dock / telemetry tray
-    const screenDock = document.createElement("div");
-    screenDock.className = "cc-corkboard-pin-rail cc-screen-dock";
-    screenDock.innerHTML = `
-      <div class="cc-pin-rail-lip cc-screen-dock-lip"></div>
-      <div class="cc-pin-rail-contents cc-screen-dock-contents">
-        <div class="cc-pushpin-item cc-screen-channel active" data-color="blue" data-channel="CH-01" title="Tactical Channel Alpha (Active)">
-          <div class="cc-pin-head cc-channel-led"></div>
-          <span class="cc-pin-label cc-channel-label">CH-01 [ALPHA]</span>
-        </div>
-        <div class="cc-pushpin-item cc-screen-channel" data-color="red" data-channel="CH-02" title="Tactical Channel Beta">
-          <div class="cc-pin-head cc-channel-led"></div>
-          <span class="cc-pin-label cc-channel-label">CH-02 [BETA]</span>
-        </div>
-        <div class="cc-pushpin-item cc-screen-channel" data-color="amber" data-channel="CH-03" title="Tactical Channel Gamma">
-          <div class="cc-pin-head cc-channel-led"></div>
-          <span class="cc-pin-label cc-channel-label">CH-03 [GAMMA]</span>
-        </div>
-        <div class="cc-pushpin-item cc-screen-channel" data-color="green" data-channel="CH-04" title="Telemetry Channel Delta">
-          <div class="cc-pin-head cc-channel-led"></div>
-          <span class="cc-pin-label cc-channel-label">CH-04 [DELTA]</span>
-        </div>
-        <div class="cc-pushpin-item cc-screen-channel" data-color="purple" data-channel="CH-05" title="Auxiliary Channel Epsilon">
-          <div class="cc-pin-head cc-channel-led"></div>
-          <span class="cc-pin-label cc-channel-label">CH-05 [EPSILON]</span>
-        </div>
-        <div class="cc-cork-action-tool cc-screen-action-tool" title="Calibrate holographic display & refresh HUD scan">
-          <span class="cc-tool-icon">⚡</span>
-          <span class="cc-tool-text">RE-CALIBRATE HUD</span>
-        </div>
-      </div>
-    `;
-
-    // Interactive channel dock behavior
-    screenDock.querySelectorAll(".cc-pushpin-item").forEach((item) => {
-      item.addEventListener("click", () => {
-        screenDock.querySelectorAll(".cc-pushpin-item").forEach((p) => p.classList.remove("active"));
-        item.classList.add("active");
-        const channel = item.getAttribute("data-channel");
-        const statusEl = boardHeaderPlate.querySelector(".cc-corkboard-status");
-        if (statusEl) {
-          statusEl.textContent = `● ${channel} ACTIVE`;
-        }
-      });
-    });
-
-    const repinTool = screenDock.querySelector(".cc-cork-action-tool");
-    if (repinTool) {
-      repinTool.addEventListener("click", () => {
-        const statusEl = boardHeaderPlate.querySelector(".cc-corkboard-status");
-        if (statusEl) {
-          statusEl.textContent = "⚡ HUD TELEMETRY CALIBRATED";
-          setTimeout(() => {
-            statusEl.textContent = "● ONLINE // 100%";
-          }, 2000);
-        }
-      });
-    }
 
     // Floating tactical "Top of Screen" scroll button
     const scrollToTopBtn = document.createElement("button");
@@ -244,7 +166,6 @@ class CommandCenterWebSandbox {
       }
     });
 
-    screenChassis.appendChild(screenDock);
     this.boardroomStage.appendChild(screenChassis);
     this.rootEl.appendChild(this.boardroomStage);
 
