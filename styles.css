@@ -1,0 +1,738 @@
+/* ==========================================================================
+   Command Center — Futuristic Computer Screen Theme
+   Scoped strictly under .command-center-view-root for Obsidian integration
+   ========================================================================== */
+
+/* 1. Futuristic Typography */
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+/* 2. Theme Variables & Canvas Baseline (Scoped to View Root) */
+.command-center-view-root {
+  --cc-bg-primary: #070a14;
+  --cc-bg-primary-alt: #0b1120;
+  --cc-bg-secondary: #0c1527;
+  --cc-bg-secondary-alt: #101c34;
+  --cc-border: rgba(56, 189, 248, 0.25);
+  --cc-border-glow: rgba(0, 240, 255, 0.45);
+  --cc-form-field: #0d162a;
+  --cc-text-normal: #e2e8f0;
+  --cc-text-muted: #7dd3fc;
+  --cc-text-faint: #38bdf8;
+  --cc-text-accent: #00f0ff;
+  --cc-interactive-normal: #101c34;
+  --cc-interactive-hover: #172a4d;
+  --cc-interactive-accent: #00f0ff;
+
+  --font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Orbitron", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-tech: "Chakra Petch", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  font-family: var(--font-family) !important;
+  color: var(--cc-text-normal) !important;
+  background-color: #060913 !important;
+  background-image:
+    /* Layer 1: Fine coordinate laser grid */
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    /* Layer 2: CRT / Holographic micro-scanlines */
+    repeating-linear-gradient(0deg, rgba(0, 240, 255, 0.016) 0px, rgba(0, 240, 255, 0.016) 1px, transparent 1px, transparent 3px),
+    /* Layer 3: Central cathode phosphorescent bloom */
+    radial-gradient(ellipse at 50% 25%, rgba(14, 165, 233, 0.09) 0%, rgba(6, 9, 19, 0.95) 85%) !important;
+  background-size: 36px 36px, 36px 36px, 100% 3px, 100% 100% !important;
+  background-position: 0 0, 0 0, 0 0, 0 0 !important;
+  box-sizing: border-box !important;
+  min-height: 100% !important;
+  width: 100% !important;
+  overflow-y: auto !important;
+  position: relative !important;
+}
+
+/* 3. Screen Layout & Centering State Resolution */
+.command-center-view-root {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+
+/* Entry screen active: center the tactical activation matrix */
+.command-center-view-root.command-center-entry-view:has(.command-center-entry-button),
+.command-center-view-root:has(.command-center-entry-button),
+.command-center-entry-host {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  height: 100% !important;
+}
+
+/* Post-entry guard: when button is removed, ensure flex-start alignment overrides lingering inline styles */
+.command-center-view-root:not(:has(.command-center-entry-button)),
+.command-center-entry-view:not(:has(.command-center-entry-button)) {
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+
+/* 4. Entry Screen (Holographic Opening Surface) */
+.command-center-entry-view {
+  flex: 1;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative;
+  padding: 3.5rem 1.5rem;
+  background: transparent !important;
+  overflow: hidden;
+  min-height: 420px;
+}
+
+/* Holographic Radar Target Reticle in Background */
+.command-center-entry-view::before {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  border: 2px dashed rgba(56, 189, 248, 0.22);
+  box-shadow: 0 0 40px rgba(14, 165, 233, 0.08), inset 0 0 40px rgba(14, 165, 233, 0.08);
+  pointer-events: none;
+  animation: cc-rotate-reticle 120s linear infinite;
+}
+
+@keyframes cc-rotate-reticle {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Entry View Button — Holographic Activation Matrix */
+.command-center-entry-button {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, #091a38 0%, #0d2854 50%, #1e3a8a 100%) !important;
+  color: #ffffff !important;
+  border: 2px solid #00f0ff !important;
+  border-radius: 14px !important;
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem) !important;
+  padding: 1.6rem 3.8rem !important;
+  min-width: 340px !important;
+  max-width: 90% !important;
+  letter-spacing: 0.06em !important;
+  box-shadow:
+    0 0 35px rgba(0, 240, 255, 0.35),
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    inset 0 0 20px rgba(0, 240, 255, 0.15) !important;
+  cursor: pointer !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.4rem !important;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+}
+
+/* Glowing laser diode emitter on Entry button */
+.command-center-entry-button::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 12px #00f0ff;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Sub-label: INITIALIZE SYSTEM */
+.command-center-entry-button::after {
+  content: "INITIALIZE SYSTEM ➔";
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  opacity: 0.95;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+.command-center-entry-button:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow:
+    0 0 45px rgba(0, 240, 255, 0.55),
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    inset 0 0 25px rgba(0, 240, 255, 0.3) !important;
+  background: linear-gradient(135deg, #0e2752 0%, #153c7a 50%, #2563eb 100%) !important;
+}
+
+.command-center-entry-button:active {
+  transform: translateY(1px) scale(0.99) !important;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3) !important;
+}
+
+/* 5. Orientation Bar (Cybernetic Cockpit Navigation Header) */
+.command-center-orientation-bar-container {
+  position: relative !important;
+  width: 100% !important;
+  flex-shrink: 0 !important;
+  z-index: 20 !important;
+}
+
+.command-center-orientation-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 0.75rem !important;
+  padding: 0.75rem 1.6rem !important;
+  background: rgba(8, 14, 28, 0.96) !important;
+  backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.35) !important;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(56, 189, 248, 0.2) !important;
+  position: relative;
+  user-select: none;
+}
+
+/* Corner Diode Markers on Orientation Bar */
+.command-center-orientation-bar::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+}
+
+.command-center-orientation-bar::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+}
+
+/* Orientation Bar Flex Order Re-arrangement */
+.command-center-orientation-previous {
+  order: 1 !important;
+}
+
+.command-center-orientation-up {
+  order: 2 !important;
+  margin-right: 0.5rem !important;
+}
+
+.command-center-orientation-label {
+  order: 3 !important;
+  flex: 1 1 auto !important;
+  text-align: center !important;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.08em !important;
+  color: #f0fdf4 !important;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+  padding: 0 1rem !important;
+}
+
+.command-center-orientation-top {
+  order: 4 !important;
+  margin-left: 0.5rem !important;
+}
+
+.command-center-orientation-next {
+  order: 5 !important;
+}
+
+/* Orientation Bar Buttons */
+.command-center-orientation-bar button {
+  background: linear-gradient(180deg, #101c34 0%, #091122 100%) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.45) !important;
+  border-radius: 8px !important;
+  padding: 0.55rem 1.15rem !important;
+  font-family: var(--font-display) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  min-width: 52px !important;
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(56, 189, 248, 0.2) !important;
+  cursor: pointer !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.command-center-orientation-previous,
+.command-center-orientation-next {
+  font-weight: 800 !important;
+}
+
+.command-center-orientation-bar button:not(:disabled):hover {
+  background: linear-gradient(180deg, #162b4e 0%, #0d1a33 100%) !important;
+  border-color: #00f0ff !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 0 16px rgba(0, 240, 255, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-1px) scale(1.02) !important;
+}
+
+.command-center-orientation-bar button:not(:disabled):active {
+  transform: translateY(1px) scale(0.98) !important;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.3) !important;
+}
+
+.command-center-orientation-bar button:disabled {
+  opacity: 0.22 !important;
+  background: #070d18 !important;
+  border: 1px solid #1e293b !important;
+  box-shadow: none !important;
+  color: #475569 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+/* 6. Gateway View (3x2 Tactical Holo-Card Grid) */
+.command-center-gateway-view {
+  background: transparent !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 15rem)) !important;
+  gap: 1.8rem !important;
+  padding: 2.8rem 1.5rem !important;
+  justify-content: center !important;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .command-center-gateway-view {
+    grid-template-columns: repeat(2, minmax(0, 14rem)) !important;
+    gap: 1.25rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .command-center-gateway-view {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Gateway Destination Holo-Cards */
+.command-center-gateway-button {
+  position: relative;
+  background: linear-gradient(135deg, rgba(12, 22, 44, 0.9) 0%, rgba(8, 14, 30, 0.96) 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  border-radius: 12px !important;
+  color: #f1f5f9 !important;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  padding: 2rem 1.25rem !important;
+  min-height: 110px !important;
+  letter-spacing: 0.05em !important;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(56, 189, 248, 0.25) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  cursor: pointer !important;
+}
+
+/* Tactical LED Status Emitters on Gateway Cards */
+.command-center-gateway-button::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Status Colors: (1) Current, (2) Planning, (3) Ideas, (4) Ongoing, (5) New Project, (6) Archive */
+.command-center-gateway-button:nth-child(1)::before { background: #00f0ff; box-shadow: 0 0 8px #00f0ff; }
+.command-center-gateway-button:nth-child(2)::before { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.command-center-gateway-button:nth-child(3)::before { background: #a855f7; box-shadow: 0 0 8px #a855f7; }
+.command-center-gateway-button:nth-child(4)::before { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.command-center-gateway-button:nth-child(5)::before { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
+.command-center-gateway-button:nth-child(6)::before { background: #94a3b8; box-shadow: 0 0 8px #94a3b8; }
+
+.command-center-gateway-button:hover {
+  background: linear-gradient(135deg, #132447 0%, #0e1b36 100%) !important;
+  border-color: #00f0ff !important;
+  box-shadow:
+    0 0 25px rgba(0, 240, 255, 0.4),
+    0 12px 32px rgba(0, 0, 0, 0.8),
+    inset 0 0 15px rgba(0, 240, 255, 0.15) !important;
+  color: #ffffff !important;
+  transform: translateY(-4px) scale(1.02) !important;
+}
+
+.command-center-gateway-button:active {
+  transform: translateY(1px) scale(0.99) !important;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2) !important;
+}
+
+/* 7. Project List View (Cybernetic Interactive Cards) */
+.command-center-project-list-view {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.command-center-project-list-button {
+  background: rgba(11, 18, 35, 0.9) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  color: #f1f5f9 !important;
+  border-left: 4px solid #00f0ff !important;
+  border-radius: 8px !important;
+  padding: 1rem 1.25rem !important;
+  margin-bottom: 0.75rem !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.15s ease !important;
+  position: relative;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: block;
+}
+
+.command-center-project-list-button:hover {
+  background: rgba(16, 28, 54, 0.95) !important;
+  border-color: #00f0ff !important;
+  border-left-color: #38bdf8 !important;
+  transform: translateX(4px) translateY(-1px) !important;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.3), 0 8px 24px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* 8. Dashboard View & Tactical Data Slate */
+.command-center-dashboard-view-container,
+.command-center-dashboard-view {
+  height: auto !important;
+  min-height: min-content !important;
+  max-width: 960px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 1.5rem !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+/* Holographic Tactical Data Slate */
+.command-center-dashboard-resolved {
+  background: rgba(9, 14, 28, 0.94) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  border-radius: 14px !important;
+  padding: 2.25rem 2.25rem 2.75rem 2.25rem !important;
+  box-shadow:
+    0 0 40px rgba(14, 165, 233, 0.12),
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+  position: relative;
+  margin-top: 0.75rem !important;
+  margin-bottom: 2.5rem !important;
+  height: auto !important;
+  min-height: min-content !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.15rem !important;
+  overflow: visible !important;
+}
+
+/* Tactical Corner Diode Emitters */
+.command-center-dashboard-resolved::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+}
+
+.command-center-dashboard-resolved::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+.command-center-dashboard-name {
+  letter-spacing: -0.015em;
+  font-size: 1.65rem !important;
+  font-weight: 700 !important;
+  color: #f8fafc !important;
+  font-family: var(--font-family) !important;
+}
+
+.command-center-dashboard-status {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.65rem !important;
+  background: rgba(14, 165, 233, 0.15) !important;
+  color: #38bdf8 !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 0 0 8px rgba(14, 165, 233, 0.25);
+}
+
+/* Where Things Stand Executive Group */
+.command-center-dashboard-where-things-stand {
+  background: rgba(12, 20, 40, 0.8) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  border-left: 4px solid #00f0ff !important;
+  border-radius: 10px !important;
+  padding: 1.35rem 1.6rem 1.5rem 1.6rem !important;
+  margin: 0.75rem 0 1.15rem 0 !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.85rem !important;
+}
+
+.command-center-dashboard-where-things-stand-label {
+  font-family: var(--font-display) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: #38bdf8 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25) !important;
+  padding-bottom: 0.45rem !important;
+}
+
+.command-center-dashboard-where-things-stand-label::before {
+  content: "⚡";
+  color: #00f0ff;
+  font-size: 0.9rem;
+}
+
+/* Operational Items Grid */
+.command-center-dashboard-items {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)) !important;
+  gap: 1rem 1.25rem !important;
+  margin-top: 0.35rem !important;
+  align-items: stretch !important;
+}
+
+/* Card Tiles for Each Operational Field */
+.command-center-dashboard-items > div {
+  background: rgba(14, 165, 233, 0.05) !important;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 0.35rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s ease !important;
+}
+
+.command-center-dashboard-items > div:hover {
+  background: rgba(14, 165, 233, 0.1) !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+}
+
+/* Operational Field Labels */
+.command-center-dashboard-item-milestone-label,
+.command-center-dashboard-item-progress-label,
+.command-center-dashboard-item-next-action-label,
+.command-center-dashboard-item-blockers-label,
+.command-center-dashboard-item-last-updated-label {
+  font-family: var(--font-mono) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #38bdf8 !important;
+  margin-bottom: 0.15rem !important;
+}
+
+/* Operational Field Values */
+.command-center-dashboard-item-milestone-value,
+.command-center-dashboard-item-progress-value,
+.command-center-dashboard-item-next-action-value,
+.command-center-dashboard-item-blockers-value,
+.command-center-dashboard-item-last-updated-value {
+  font-size: 0.96rem !important;
+  font-weight: 600 !important;
+  color: #f8fafc !important;
+  line-height: 1.45 !important;
+}
+
+/* Distinct "No blockers." highlight */
+.command-center-dashboard-item-blockers-value {
+  color: #34d399 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 8px rgba(52, 211, 153, 0.4) !important;
+}
+
+.command-center-dashboard-item-blockers-list {
+  margin: 0.25rem 0 0 0 !important;
+  padding-left: 1.25rem !important;
+  color: #f87171 !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.3) !important;
+}
+
+/* Next Action Tile spans across columns on wider screens */
+@media (min-width: 680px) {
+  .command-center-dashboard-item-next-action {
+    grid-column: span 2 !important;
+  }
+}
+
+/* Focus, Purpose, Description, Reference Lines */
+.command-center-dashboard-focus,
+.command-center-dashboard-purpose,
+.command-center-dashboard-description,
+.command-center-dashboard-reference {
+  background: rgba(11, 18, 36, 0.75) !important;
+  border: 1px solid rgba(56, 189, 248, 0.2) !important;
+  border-left: 4px solid #38bdf8 !important;
+  border-radius: 8px !important;
+  padding: 0.85rem 1.15rem !important;
+  margin-top: 0.35rem !important;
+  box-sizing: border-box !important;
+}
+
+.command-center-dashboard-focus {
+  border-left-color: #00f0ff !important;
+  background: rgba(14, 165, 233, 0.08) !important;
+}
+
+.command-center-dashboard-focus-label,
+.command-center-dashboard-purpose-label,
+.command-center-dashboard-description-label,
+.command-center-dashboard-reference-label {
+  font-family: var(--font-mono) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #7dd3fc !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.command-center-dashboard-focus-value {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: #f0fdf4 !important;
+  line-height: 1.45 !important;
+}
+
+.command-center-dashboard-purpose-value,
+.command-center-dashboard-description-value {
+  font-size: 0.94rem !important;
+  line-height: 1.55 !important;
+  color: #cbd5e1 !important;
+}
+
+.command-center-dashboard-reference-value {
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  color: #38bdf8 !important;
+}
+
+/* 9. Inspector */
+.command-center-inspector-container {
+  padding: 0.85rem 1.25rem;
+  background: #060913;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.command-center-inspector-dump {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #38bdf8;
+}
+
+/* 10. New Project Intake Screen */
+.new-project-view {
+  background: rgba(10, 16, 32, 0.96) !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  border-radius: 12px !important;
+  padding: 2.25rem !important;
+  margin: 2rem auto !important;
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.2), 0 20px 50px rgba(0, 0, 0, 0.8) !important;
+  max-width: 640px !important;
+  color: #f1f5f9 !important;
+}
+
+.new-project-status-group select {
+  padding: 0.45rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: #0d162a;
+  color: #e2e8f0;
+}
+
+.new-project-cancel-button {
+  padding: 0.5rem 1.25rem;
+  background: #101c34;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.new-project-submit-button {
+  background: linear-gradient(135deg, #0284c7, #00f0ff) !important;
+  color: #03060c !important;
+  border: none !important;
+  padding: 0.5rem 1.5rem !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+  cursor: pointer;
+  border-radius: 6px;
+}
