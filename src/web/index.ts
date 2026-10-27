@@ -484,7 +484,18 @@ class CommandCenterWebSandbox {
       this.orientationBarContainer.empty();
     }
     this.viewContainer.empty();
-    this.entryView = new EntryView(this.viewContainer, () => {
+
+    // Mount EntryView into its own dedicated host container so the scroll container (.cc-sandbox-main-area)
+    // never inherits .command-center-entry-view or its flexbox centering styles.
+    const entryHost = this.viewContainer.createDiv({
+      cls: "command-center-entry-host",
+    });
+    entryHost.style.flex = "1";
+    entryHost.style.display = "flex";
+    entryHost.style.width = "100%";
+    entryHost.style.minHeight = "100%";
+
+    this.entryView = new EntryView(entryHost, () => {
       this.enterNavigationRoot();
     });
     this.entryView.render();
@@ -495,6 +506,7 @@ class CommandCenterWebSandbox {
     this.viewContainer.style.display = "flex";
     this.viewContainer.style.flexDirection = "column";
     this.viewContainer.style.alignItems = "stretch";
+    this.viewContainer.style.justifyContent = "flex-start";
 
     this.entryView = null;
 
